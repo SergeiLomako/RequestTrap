@@ -1,0 +1,36 @@
+{
+  "name": "trap.loc",
+  "version": "1.0.0",
+  "description": "test project",
+  "main": "server.js",
+  "scripts": {
+    "start": "cd dist && node server.js",
+    "watch": "nodemon start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SergeiLomako/RequestTrap.git"
+  },
+  "keywords": [
+    "Request",
+    "Trap"
+  ],
+  "author": "Sergei Lomako",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SergeiLomako/RequestTrap/issues"
+  },
+  "homepage": "https://github.com/SergeiLomako/RequestTrap#readme",
+  "devDependencies": {
+    "n": "^2.1.12",
+    "nodemon": "^1.18.3"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.8",
+    "mongoose-timestamp": "^0.6.0"
+  }
+}
