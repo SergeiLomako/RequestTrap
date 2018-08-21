@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Request Trap</title>
+</head>
+<body>
+    <h1 style="text-align: center">Request Trap "<%= trap_id %>"</h1>
+    <div class="content-traps">
+        <% traps.forEach(function(trap) { %>
+            <div class="trap-item">
+                <ul style="list-style: none">
+                    <li>Query String: <b><%= trap.query_string %></b></li>
+                    <li>Remote IP: <b><%= trap.remote_ip %></b></li>
+                    <li>Method: <b><%= trap.method %></b></li>
+                    <li>Scheme: <b><%= trap.scheme %></b></li>
+                    <li>Query Params:
+                        <ul style="list-style: none">
+                            <% trap.query_params.forEach(function(param) { %>
+                            <% for(key in param){%>
+                            <li><%= key %>: <b><%= param[key] %></b></li>
+                            <% } %>
+                            <% }); %>
+                        </ul>
+                    </li>
+                    <li>Headers:
+                        <ul style="list-style: none">
+                            <% trap.headers.forEach(function(header) { %>
+                                <% for(key in header){%>
+                                    <li><%= key %>: <b><%= header[key] %></b></li>
+                                <% } %>
+                            <% }); %>
+                        </ul>
+                    </li>
+                    <li>Cookies:
+                        <ul style="list-style: none">
+                            <% trap.cookies.forEach(function(cookie) { %>
+                            <% for(key in cookie){%>
+                            <li><%= key %>: <b><%= cookie[key] %></b></li>
+                            <% } %>
+                            <% }); %>
+                        </ul>
+                    </li>
+                    <li>Date: <b><%= trap.createdAt %></b></li>
+                </ul>
+                <hr>
+            </div>
+        <% }); %>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+    </script>
+</body>
+</html>

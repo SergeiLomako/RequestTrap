@@ -1,25 +1,28 @@
-import fs from 'fs';
-import path from 'path';
-import express from 'express';
-import cors from 'cors';
-import config from '/config';
-const api = express();
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const router = require('./routes');
+require('./db');
 
-api.use(cors());
+app.set('views', './views');
+app.set('view engine', 'ejs');
 
-api.listen(config.server.port, err => {
-    if (err) {
-        console.log(err);
-        process.exit(1);
-    }
-
-    require('/db');
-
-    fs.readdirSync(path.join(__dirname, 'routes')).map(file => {
-        require('./routes/' + file)(api);
-    });
-
-    console.log(`API is now running on port ${config.server.port} in ${config.env} mode`);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(router);
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+http.listen(3000, err => {
+  if (err) {
+    console.log(err);
+  }
+    
+  console.log('API is now running on port 3000');
 });
 
-module.exports = api;
+module.exports = app;

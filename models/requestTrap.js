@@ -1,17 +1,17 @@
-import mongoose, { Schema } from 'mongoose';
-import timestamps from 'mongoose-timestamp';
+const mongoose = require('mongoose');
+const timestamps = require('mongoose-timestamp');
 
-export const RequestTrapSchema = new Schema(
-    {
-      //field and rules  
-    },
-    { collection: 'traps' }
-);
-
+const RequestTrapSchema = new mongoose.Schema({
+  request: {type: String, index: true},
+  query_string: String,
+  remote_ip: String,
+  method: String,
+  scheme: String,
+  query_params: Array,
+  headers: Array,
+  cookies: Array
+}, {collection: 'traps'});
 
 RequestTrapSchema.plugin(timestamps);
 
-//index fields
-RequestTrapSchema.index({ });
-
-module.exports = exports = mongoose.model('RequestTrap', RequestTrapSchema);
+module.exports = mongoose.model('RequestTrap', RequestTrapSchema);

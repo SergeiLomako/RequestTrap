@@ -4,7 +4,7 @@
   "description": "test project",
   "main": "server.js",
   "scripts": {
-    "start": "cd dist && node server.js",
+    "start": "node server.js",
     "watch": "nodemon start"
   },
   "repository": {
@@ -22,15 +22,15 @@
   },
   "homepage": "https://github.com/SergeiLomako/RequestTrap#readme",
   "devDependencies": {
-    "n": "^2.1.12",
     "nodemon": "^1.18.3"
   },
   "dependencies": {
-    "cors": "^2.8.4",
-    "dotenv": "^6.0.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "mongoose": "^5.2.8",
-    "mongoose-timestamp": "^0.6.0"
+    "mongoose-timestamp": "^0.6.0",
+    "socket.io": "^2.1.1"
   }
 }
