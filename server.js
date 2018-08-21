@@ -17,6 +17,7 @@ app.use(router);
 io.on('connection', (socket) => {
   console.log('a user connected');
 });
+
 http.listen(3000, err => {
   if (err) {
     console.log(err);

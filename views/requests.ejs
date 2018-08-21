@@ -16,9 +16,9 @@
                     <li>Query Params:
                         <ul style="list-style: none">
                             <% trap.query_params.forEach(function(param) { %>
-                            <% for(key in param){%>
-                            <li><%= key %>: <b><%= param[key] %></b></li>
-                            <% } %>
+                                <% for(key in param){%>
+                                    <li><%= key %>: <b><%= param[key] %></b></li>
+                                <% } %>
                             <% }); %>
                         </ul>
                     </li>
@@ -34,9 +34,9 @@
                     <li>Cookies:
                         <ul style="list-style: none">
                             <% trap.cookies.forEach(function(cookie) { %>
-                            <% for(key in cookie){%>
-                            <li><%= key %>: <b><%= cookie[key] %></b></li>
-                            <% } %>
+                                <% for(key in cookie){%>
+                                    <li><%= key %>: <b><%= cookie[key] %></b></li>
+                                <% } %>
                             <% }); %>
                         </ul>
                     </li>
