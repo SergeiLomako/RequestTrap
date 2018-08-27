@@ -1,5 +1,6 @@
+const config = require('../config');
 const mongoose = require('mongoose'),
-      host = 'mongodb://localhost:27017/request_trap'; 
+      host = config.database.uri,
       connection = mongoose.connect(host, { useNewUrlParser: true }),
       success_message = `Successfully connected to ${host}`,
       error_message = `Connect failed to database: ${host}`;

@@ -7,9 +7,9 @@ const RequestTrapSchema = new mongoose.Schema({
   remote_ip: String,
   method: String,
   scheme: String,
-  query_params: Array,
-  headers: Array,
-  cookies: Array
+  query_params: Object,
+  headers: Object,
+  cookies: Object
 }, {collection: 'traps'});
 
 RequestTrapSchema.plugin(timestamps);

@@ -15,29 +15,23 @@
                     <li>Scheme: <b><%= trap.scheme %></b></li>
                     <li>Query Params:
                         <ul style="list-style: none">
-                            <% trap.query_params.forEach(function(param) { %>
-                                <% for(key in param){%>
-                                    <li><%= key %>: <b><%= param[key] %></b></li>
-                                <% } %>
-                            <% }); %>
+                            <% for(key in trap.query_params){%>
+                                <li><%= key %>: <b><%= trap.query_params[key] %></b></li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>Headers:
                         <ul style="list-style: none">
-                            <% trap.headers.forEach(function(header) { %>
-                                <% for(key in header){%>
-                                    <li><%= key %>: <b><%= header[key] %></b></li>
-                                <% } %>
-                            <% }); %>
+                            <% for(key in trap.headers){%>
+                                <li><%= key %>: <b><%= trap.headers[key] %></b></li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>Cookies:
                         <ul style="list-style: none">
-                            <% trap.cookies.forEach(function(cookie) { %>
-                                <% for(key in cookie){%>
-                                    <li><%= key %>: <b><%= cookie[key] %></b></li>
-                                <% } %>
-                            <% }); %>
+                            <% for(key in trap.cookies){%>
+                                <li><%= key %>: <b><%= trap.cookies[key] %></b></li>
+                            <% } %>
                         </ul>
                     </li>
                     <li>Date: <b><%= trap.createdAt %></b></li>
@@ -46,9 +40,5 @@
             </div>
         <% }); %>
     </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-    </script>
 </body>
 </html>
