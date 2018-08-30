@@ -1,7 +1,12 @@
+const fs = require('fs');
+const appRoot = require('app-root-path');
+const ejs = require('ejs');
 const RequestTrap = require('../models/requestTrap');
+const template = fs.readFileSync(appRoot + '/views/singleRequest.ejs', 'utf-8');
 
 exports.save = (req, res) => {
-  const NewTrap = new RequestTrap({
+  const io = req.io;
+  const data = {
     request: req.params.trap_id,
     query_string: req.originalUrl,
     remote_ip: req.header('x-forwarded-for') || req.client.remoteAddress,
@@ -10,14 +15,20 @@ exports.save = (req, res) => {
     query_params: req.body,
     headers: req.headers,
     cookies: req.cookies
-  });
+  };
+
+  const NewTrap = new RequestTrap(data);
 
   NewTrap.save( err => {
     if(err){
       res.send(err);
     }
-       
+
+    const html = ejs.render(template, {trap: data});
+    console.log(html);
+    io.emit('newRequest', html);
     res.status(201).send('Model created successfully!!!');
+
   });
 };
 

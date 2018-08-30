@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1 style="text-align: center">Request Trap "<%= trap_id %>"</h1>
-    <div class="content-traps">
+    <div id="content-traps">
         <% traps.forEach(function(trap) { %>
             <div class="trap-item">
                 <ul style="list-style: none">
@@ -40,5 +40,16 @@
             </div>
         <% }); %>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('<%= traps[0].query_string %>');
+        var requestTraps = document.getElementById('content-traps');
+        socket.on('newRequest', function(html){
+           var item = document.createElement('div');
+           item.className = 'trap-item';
+           item.innerHTML = html;
+           requestTraps.insertBefore(item, requestTraps.firstChild);
+        });
+    </script>
 </body>
 </html>

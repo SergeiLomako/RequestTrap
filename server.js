@@ -11,13 +11,20 @@ require('./db');
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+app.use( (req, res, next) => {
+  if (req.originalUrl === '/favicon.ico') {
+    res.status(204).json();
+  }
+  else {
+    req.io = io.of(req.originalUrl);
+    next();
+  }
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(router);
-io.on('connection', (socket) => {
-  console.log('a user connected');
-});
 
 http.listen(config.server.port, err => {
   if (err) {
