@@ -2,10 +2,9 @@ const fs = require('fs');
 const appRoot = require('app-root-path');
 const ejs = require('ejs');
 const RequestTrap = require('../models/requestTrap');
-const template = fs.readFileSync(appRoot + '/views/singleRequest.ejs', 'utf-8');
+const template = fs.readFileSync(`${appRoot}/views/singleRequest.ejs`, 'utf-8');
 
 exports.save = (req, res) => {
-  const io = req.io;
   const data = {
     request: req.params.trap_id,
     query_string: req.originalUrl,
@@ -17,34 +16,21 @@ exports.save = (req, res) => {
     cookies: req.cookies
   };
 
-  const NewTrap = new RequestTrap(data);
+  new RequestTrap(data).save( err => {
+    if(err){ res.send(err) }
 
-  NewTrap.save( err => {
-    if(err){
-      res.send(err);
-    }
-
-    const html = ejs.render(template, {trap: data});
-    console.log(html);
-    io.emit('newRequest', html);
+    const html = ejs.render(template, { trap: data });
+    req.io.emit('newRequest', html);
     res.status(201).send('Model created successfully!!!');
-
   });
 };
 
 exports.getRequestList = (req, res) => {
-  RequestTrap.find({request: req.params.trap_id})
-    .sort({'createdAt': -1})
+  RequestTrap.find({ request: req.params.trap_id })
+    .sort({ 'createdAt': -1 })
     .exec((err, traps) => {
-    if (err) {
-      res.send(err);
-    }
-    else if (traps.length == 0) {
-      res.send('Page not found')
-         .status(404);
-    }
-    else {
-      res.render('requests', {traps: traps, trap_id: req.params.trap_id});
-    }
+    if (err) { res.send(err) }
+    else if (traps.length === 0) { res.send('Page not found').status(404)}
+    else { res.render('requests', { traps, trap_id: req.params.trap_id }) }
   });
 };  

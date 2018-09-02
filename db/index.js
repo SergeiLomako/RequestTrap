@@ -1,9 +1,8 @@
-const config = require('../config');
-const mongoose = require('mongoose'),
-      host = config.database.uri,
-      connection = mongoose.connect(host, { useNewUrlParser: true }),
-      success_message = `Successfully connected to ${host}`,
-      error_message = `Connect failed to database: ${host}`;
+const mongoose = require('mongoose');
+const { database: { uri } } = require('../config');
+const connection = mongoose.connect(uri, { useNewUrlParser: true });
+const success_message = `Successfully connected to ${ uri }`;
+const error_message = `Connect failed to database: ${ uri }`;
 
 connection
   .then(db => {
@@ -17,7 +16,7 @@ connection
           .then(db => {
             console.log(success_message);
             return db;
-        })
+          })
           .catch(err => {
               console.log(error_message);
           });    
