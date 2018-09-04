@@ -5,21 +5,21 @@ const RequestTrap = require('../models/requestTrap');
 const template = fs.readFileSync(`${appRoot}/views/singleRequest.ejs`, 'utf-8');
 
 exports.save = (req, res) => {
-  const data = {
-    request: req.params.trap_id,
+  const trap = {
+    request: req.path,
     query_string: req.originalUrl,
-    remote_ip: req.header('x-forwarded-for') || req.client.remoteAddress,
+    remote_ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     method: req.method,
     scheme: req.protocol,
-    query_params: req.body,
+    query_params: req.method === 'GET' ? req.query : req.body,
     headers: req.headers,
     cookies: req.cookies
   };
 
-  new RequestTrap(data).save( err => {
+  new RequestTrap(trap).save( err => {
     if(err){ res.send(err) }
 
-    const html = ejs.render(template, { trap: data });
+    const html = ejs.render(template, { trap });
     req.io.emit('newRequest', html);
     res.status(201).send('Model created successfully!!!');
   });

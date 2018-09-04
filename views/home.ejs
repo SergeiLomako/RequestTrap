@@ -7,8 +7,8 @@
     <h1 style="text-align: center">Request Trap</h1>
     <p style="text-align: center">Instructions:</p>
     <ol>
-        <li>Send request to <%= url %>/your_request </li>
-        <li>Check requests: <%= url %>/your_request/requests</li>
+        <li>Send request to <%= req.hostname %>:<%= req.port %>/your_request </li>
+        <li>Check requests: <%= req.hostname %>:<%= req.port %>/your_request/requests</li>
     </ol>
 </body>
 </html>

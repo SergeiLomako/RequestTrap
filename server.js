@@ -12,7 +12,8 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 
 app.use( (req, res, next) => {
-    req.io = io.of(req.originalUrl);
+    req.io = io.of(req.path);
+    req.port = port;
     next();
 });
 

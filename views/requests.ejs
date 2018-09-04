@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Request Trap</title>
+    <title>Trap "<%= traps[0].request %>"</title>
 </head>
 <body>
     <h1 style="text-align: center">Request Trap "<%= trap_id %>"</h1>
@@ -42,7 +42,7 @@
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        var socket = io('<%= traps[0].query_string %>');
+        var socket = io('/<%= traps[0].request %>');
         var requestTraps = document.getElementById('content-traps');
         socket.on('newRequest', function(html){
            var item = document.createElement('div');
